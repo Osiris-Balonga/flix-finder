@@ -1,0 +1,82 @@
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
+import PageNotFound from "../pages/errors/page-not-found";
+import LayoutsFooter from "./layouts-footer";
+import LayoutsHeader from "./layouts-header";
+import ForYouPage from "../pages/home/forYouPage";
+import PopularMovies from "../pages/home/popularMovies";
+import LikedMovies from "../pages/favorites/favorites";
+import MovieSearch from "../pages/movieSearch/movieSearch";
+import MovieDetails from "../shared/components/movieDetails";
+import ErrorPage from "../pages/errors/error-page";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <ErrorPage />,
+    element: <Root />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/popular" replace />
+      },
+      {
+        path: "/popular",
+        element: <PopularMovies />,
+      },
+      {
+        path: "/popular/:id",
+        element: <MovieDetails />,
+      },
+      {
+        path: "/forYou",
+        element: <ForYouPage />,
+      },
+      {
+        path: "/forYou/:id",
+        element: <MovieDetails />,
+      },
+      {
+        path: "/favorites",
+        element: <LikedMovies />,
+      },
+      {
+        path: "/favorites/:id",
+        element: <MovieDetails />,
+      },
+      {
+        path: "/search",
+        element: <MovieSearch />,
+      },
+      {
+        path: "/search/:id",
+        element: <MovieDetails />,
+      },
+      {
+        path: "/*",
+        element: <PageNotFound />,
+      },
+    ],
+  },
+  {
+    path: "/*",
+    element: <PageNotFound />,
+  },
+]);
+
+function Root() {
+  return (
+    <>
+      <LayoutsHeader />
+      <main>
+        <Outlet />
+      </main>
+      <LayoutsFooter />
+    </>
+  );
+}
+
+function LayoutsMain() {
+  return <RouterProvider router={router} />;
+}
+
+export default LayoutsMain;
