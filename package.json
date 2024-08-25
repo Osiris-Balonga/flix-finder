@@ -1,4 +1,5 @@
 {
+  "homepage": "https://osiris-balonga.github.io/flix-finder",
   "name": "flix-finder",
   "private": true,
   "version": "1.0.0",
@@ -8,6 +9,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d dist",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -24,6 +27,7 @@
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.20",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.8",
     "typescript": "^4.9.3",
