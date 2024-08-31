@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.0",
     "remixicon": "^4.3.0",
+    "rxjs": "^7.8.1",
     "swiper": "^11.1.9",
     "workbox-window": "^7.1.0"
   },

@@ -40,7 +40,7 @@ const MovieSearch: React.FC = () => {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((term) => {
+        switchMap((term: string) => {
           setIsLoading(true);
           setHasSearched(true);
           return movieService
@@ -106,7 +106,7 @@ const MovieSearch: React.FC = () => {
         next: (results: MovieModel[]) => {
           setMovies(results);
         },
-        error: (err) => {
+        error: (err: Error) => { 
           console.error("Erreur lors de la recherche de films:", err);
           setIsLoading(false);
         },
