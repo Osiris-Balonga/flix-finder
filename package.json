@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "clean": "gh-pages-clean",  
     "predeploy": "pnpm run build",
     "deploy": "gh-pages -d dist",
     "build": "tsc && vite build",
