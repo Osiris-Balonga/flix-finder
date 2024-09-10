@@ -3,10 +3,10 @@ import { Subject, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import noData from "../../assets/images/no-data.png";
 import noImage from "../../assets/images/no_image.jpg";
+import ListCard from "../../components/listCard";
+import ListSkeleton from "../../components/listSkeleton";
 import { MovieModel } from "../../models/movie.model";
 import { MovieService } from "../../services/movie.service";
-import ListCard from "../../shared/components/listCard";
-import ListSkeleton from "../../shared/components/listSkeleton";
 import { getGenreName } from "../../utils/movieUtils";
 
 const movieService = new MovieService();
@@ -106,7 +106,7 @@ const MovieSearch: React.FC = () => {
         next: (results: MovieModel[]) => {
           setMovies(results);
         },
-        error: (err: Error) => { 
+        error: (err: Error) => {
           console.error("Erreur lors de la recherche de films:", err);
           setIsLoading(false);
         },

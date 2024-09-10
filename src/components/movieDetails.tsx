@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import defaultPerson from "../../assets/images/no_image.jpg";
-import { MovieModel } from "../../models/movie.model";
-import { MovieService } from "../../services/movie.service";
-import { shareMovie, toggleLike } from "../../utils/movieUtils";
-import MovieDetailSkeleton from "./skeleton";
+import defaultPerson from "../assets/images/no_image.jpg";
+import { MovieModel } from "../models/movie.model";
+import { MovieService } from "../services/movie.service";
+import { shareMovie, toggleLike } from "../utils/movieUtils";
 import OpenGraph from "./openGraph";
+import MovieDetailSkeleton from "./skeleton";
 
 const movieService = new MovieService();
 

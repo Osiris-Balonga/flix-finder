@@ -1,5 +1,5 @@
 import React from "react";
-import openGraph from "../../assets/images/openGraph.jpg";
+import openGraph from "../assets/images/openGraph.jpg";
 
 interface OpenGraphProps {
   title?: string;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MovieModel } from "../../models/movie.model";
-import { shareMovie, toggleLike } from "../../utils/movieUtils";
+import { MovieModel } from "../models/movie.model";
+import { shareMovie, toggleLike } from "../utils/movieUtils";
 
 interface ListCardProps {
   movie: MovieModel;

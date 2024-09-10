@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import noData from "../../assets/images/no-data.png";
 import noImage from "../../assets/images/no_image.jpg";
+import ListCard from "../../components/listCard";
+import ListSkeleton from "../../components/listSkeleton";
 import { MovieModel } from "../../models/movie.model";
 import { MovieService } from "../../services/movie.service";
-import ListCard from "../../shared/components/listCard";
-import ListSkeleton from "../../shared/components/listSkeleton";
 import { getGenreName } from "../../utils/movieUtils";
 
 const movieService = new MovieService();
@@ -42,11 +42,11 @@ export default function LikedMovies() {
               const videoUrl = video
                 ? `https://www.youtube.com/watch?v=${video.key}`
                 : "";
-          
+
               const genres = movie.genres.map((genre: any) =>
                 getGenreName(genre.id)
               );
-          
+
               return {
                 id: movie.id,
                 title: movie.title,
@@ -58,11 +58,13 @@ export default function LikedMovies() {
                 description: movie.overview,
                 videoUrl,
                 releaseDate: movie.release_date || "",
-                producers: movie.production_companies?.map((comp: any) => comp.name) || [],
+                producers:
+                  movie.production_companies?.map((comp: any) => comp.name) ||
+                  [],
                 cast: movie.cast?.map((member: any) => member.name) || [],
               } as MovieModel;
             })
-          );          
+          );
 
           setLikedMovies(moviesWithVideos);
         }
