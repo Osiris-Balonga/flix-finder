@@ -1,22 +1,20 @@
-# Vite PWA Boilerplate
+# FlixFinder
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c01eaf1e-2dd9-4cf5-aa66-e131f0eeffed/deploy-status)](https://app.netlify.com/sites/vite-offline-pwa/deploys)
+[![Netlify Status](https://my-flix-finder.netlify.app/)]
 
-Boilerplate for a fully offline-available PWA that caches everything.
-
-[Blog post - tutorial](https://adueck.github.io/blog/caching-everything-for-totally-offline-pwa-vite-react/)
+FlixFinder helps you discover the best movies with personalized recommendations based on TMDB. Search for your favorite movies, find similar suggestions, and share your discoveries with your friends. Stop asking yourself “What are we watching?” » – let CinéQuest do the work!
 
 ## Develoment
 
 ```
-yarn install
-yarn dev
+pnpm install
+pnpm dev
 ```
 
 ## Building
 
 ```
-yarn build
+pnpm build
 ```
 
 Outputs the site to `/dist`
