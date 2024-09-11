@@ -176,7 +176,7 @@ const MovieSearch: React.FC = () => {
         <ul className="divide-y divide-zinc-700">
           {movies.map((movie) => (
             <ListCard
-              to={`/search/${movie.id}`}
+              to={`/movie/${movie.id}`}
               key={movie.id}
               movie={movie}
               likedMovies={likedMovies}

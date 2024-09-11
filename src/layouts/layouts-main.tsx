@@ -29,15 +29,11 @@ const router = createBrowserRouter([
         element: <PopularMovies />,
       },
       {
-        path: "/popular/:id",
-        element: <MovieDetails />,
-      },
-      {
         path: "/forYou",
         element: <ForYouPage />,
       },
       {
-        path: "/forYou/:id",
+        path: "/movie/:id",
         element: <MovieDetails />,
       },
       {
@@ -45,16 +41,8 @@ const router = createBrowserRouter([
         element: <LikedMovies />,
       },
       {
-        path: "/favorites/:id",
-        element: <MovieDetails />,
-      },
-      {
         path: "/search",
         element: <MovieSearch />,
-      },
-      {
-        path: "/search/:id",
-        element: <MovieDetails />,
       },
       {
         path: "/*",

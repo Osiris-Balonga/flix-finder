@@ -91,7 +91,7 @@ export default function LikedMovies() {
         <ul className="divide-y divide-zinc-700">
           {likedMovies.map((movie) => (
             <ListCard
-              to={`/favorites/${movie.id}`}
+              to={`/movie/${movie.id}`}
               key={movie.id}
               movie={movie}
               likedMovies={likedMoviesState}
