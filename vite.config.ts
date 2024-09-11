@@ -12,7 +12,7 @@ export default defineConfig({
       },
       includeAssets: ["**/*"],
       manifest: {
-        theme_color: "#18181b",
+        theme_color: "transparent",
         background_color: "#18181b",
         display: "standalone",
         scope: "/",

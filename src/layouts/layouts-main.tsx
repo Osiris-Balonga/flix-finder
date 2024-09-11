@@ -4,6 +4,7 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
+import PersonDetails from "../components/personDetails";
 import MovieDetails from "../components/movieDetails";
 import ErrorPage from "../pages/errors/error-page";
 import PageNotFound from "../pages/errors/page-not-found";
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/movie/:id",
         element: <MovieDetails />,
+      },
+      {
+        path: "/person/:id",
+        element: <PersonDetails />,
       },
       {
         path: "/favorites",

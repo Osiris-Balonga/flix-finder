@@ -6,6 +6,13 @@ import { getGenreName } from "../utils/movieUtils";
 export class MovieService {
   private baseUrl = URL_API.baseUrl;
   private apiKey = URL_API.apiKey;
+  private language = 'fr-FR';
+
+  constructor(language?: string) {
+    if (language) {
+      this.language = language;
+    }
+  }
 
   private getRandomPage(): number {
     const minPage = 1;
@@ -16,7 +23,7 @@ export class MovieService {
   private async fetchMovies(): Promise<any> {
     const randomPage = this.getRandomPage();
     const response = await fetch(
-      `${this.baseUrl}/movie/popular?api_key=${this.apiKey}&language=fr-FR&page=${randomPage}`
+      `${this.baseUrl}/movie/popular?api_key=${this.apiKey}&language=${this.language}&page=${randomPage}`
     );
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération des films");
@@ -26,7 +33,7 @@ export class MovieService {
 
   async fetchMovieById(id: number): Promise<any> {
     const response = await fetch(
-      `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}&language=fr-FR`
+      `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}&language=${this.language}`
     );
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération du film");
@@ -36,30 +43,47 @@ export class MovieService {
 
   async fetchMovieCredits(id: number): Promise<any> {
     const response = await fetch(
-      `${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}`
+      `${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}&language=${this.language}`
     );
+    if (!response.ok) throw new Error("Erreur lors de la récupération des crédits");
+    return response.json();
+  }
+
+  async fetchPersonById(id: number) {
+    const response = await fetch(
+      `${this.baseUrl}/person/${id}?api_key=${this.apiKey}&language=${this.language}`
+    );
+    if (!response.ok) throw new Error("Erreur lors de la récupération des détails de la personne");
+    return response.json();
+  }
+
+  async fetchPersonMovieCredits(id: number) {
+    const response = await fetch(
+      `${this.baseUrl}/person/${id}/movie_credits?api_key=${this.apiKey}&language=${this.language}`
+    );
+    if (!response.ok) throw new Error("Erreur lors de la récupération des crédits de films de la personne");
     return response.json();
   }
 
   async fetchGenres(): Promise<{ id: number; name: string }[]> {
     try {
       const response = await fetch(
-        `${this.baseUrl}/genre/movie/list?api_key=${this.apiKey}`
+        `${this.baseUrl}/genre/movie/list?api_key=${this.apiKey}&language=${this.language}`
       );
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Erreur lors de la récupération des genres");
       }
       const data = await response.json();
       return data.genres;
     } catch (error) {
-      console.error("Error fetching genres:", error);
+      console.error("Erreur lors de la récupération des genres:", error);
       return [];
     }
   }
 
   async fetchMovieVideos(id: number): Promise<any> {
     const response = await fetch(
-      `${this.baseUrl}/movie/${id}/videos?api_key=${this.apiKey}&language=fr-FR`
+      `${this.baseUrl}/movie/${id}/videos?api_key=${this.apiKey}&language=${this.language}`
     );
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération des vidéos du film");
@@ -70,7 +94,7 @@ export class MovieService {
   async fetchSimilarMovies(movieId: number): Promise<MovieModel[]> {
     const randomPage = this.getRandomPage();
     const response = await fetch(
-      `${this.baseUrl}/movie/${movieId}/similar?api_key=${this.apiKey}&language=fr-FR&page=${randomPage}`
+      `${this.baseUrl}/movie/${movieId}/similar?api_key=${this.apiKey}&language=${this.language}&page=${randomPage}`
     );
 
     if (!response.ok) {
@@ -129,7 +153,7 @@ export class MovieService {
     }
 
     const response = await fetch(
-      `${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${query}`
+      `${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${query}&language=${this.language}`
     );
     const data = await response.json();
     return data.results || [];

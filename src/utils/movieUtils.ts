@@ -1,6 +1,9 @@
 import { MovieModel } from "../models/movie.model";
 
-export const toggleLike = (movieId: number, likedMovies: { [key: number]: boolean }) => {
+export const toggleLike = (
+  movieId: number,
+  likedMovies: { [key: number]: boolean }
+) => {
   const updated = { ...likedMovies };
   const isLiked = !!likedMovies[movieId];
 
@@ -16,8 +19,8 @@ export const toggleLike = (movieId: number, likedMovies: { [key: number]: boolea
 export const shareMovie = (movie: MovieModel) => {
   const shareData = {
     title: movie.title,
-    text: `Découvre ce film incroyable : ${movie.description}`,
-    url: `${window.location.origin}${window.location.pathname}/${movie.id}`,
+    text: `Découvrez ce film incroyable : ${movie.description}`,
+    url: `https://my-flix-finder.netlify.app/movie/${movie.id}`,
   };
 
   if (navigator.share) {
@@ -30,7 +33,6 @@ export const shareMovie = (movie: MovieModel) => {
     });
   }
 };
-
 
 export const getGenreName = (id: number): string => {
   const genres: { [key: number]: string } = {

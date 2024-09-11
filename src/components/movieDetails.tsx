@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import defaultPerson from "../assets/images/no_image.jpg";
 import { MovieModel } from "../models/movie.model";
 import { MovieService } from "../services/movie.service";
@@ -18,6 +18,7 @@ const MovieDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [showAllCast, setShowAllCast] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -79,12 +80,21 @@ const MovieDetails: React.FC = () => {
     }
   };
 
+  const hasDescription = movie?.description != null;
+  const bioToDisplay = hasDescription
+    ? showFullDescription
+      ? movie?.description
+      : `${movie?.description?.substring(0, 300)}${
+          movie?.description?.length > 300 ? "..." : ""
+        }`
+    : "Aucune description disponible.";
+
   return (
     <>
       {movie && (
         <OpenGraph
           title={movie.title}
-          description={movie.description}
+          description={movie.description || ""}
           imageUrl={movie.image}
         />
       )}
@@ -125,15 +135,24 @@ const MovieDetails: React.FC = () => {
                   <i className="ri-share-forward-line"></i>
                 </button>
               </div>
-              <h1 className="mb-2 text-3xl font-bold text-center">
-                {movie.title}
-              </h1>
-              <p className="mb-2 text-zinc-400">
-                Date de sortie : {movie.releaseDate}
-              </p>
-              <p className="mb-2 text-zinc-400">
-                Producteurs : {movie.producers.join(", ")}
-              </p>
+
+              <div className="flex items-center justify-center">
+                <div className="w-full mb-4">
+                  <h1 className="mb-4 text-3xl font-bold">{movie.title}</h1>
+                  <div className="mb-4">
+                    <p className="font-semibold text-zinc-300">
+                      Date de sortie :
+                    </p>
+                    <p className="text-zinc-400">{movie.releaseDate}</p>
+                  </div>
+                  <div className="mb-4">
+                    <p className="font-semibold text-zinc-300">Producteurs</p>
+                    <p className="text-zinc-400">
+                      {movie.producers.join(", ")}
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center mb-2">
                 {[...Array(5)].map((_, index) => (
                   <span
@@ -180,13 +199,17 @@ const MovieDetails: React.FC = () => {
                   </p>
                 </div>
               )}
-              {movie.description ? (
-                <p className="mt-4 text-lg">{movie.description}</p>
-              ) : (
-                <p className="mt-4 text-lg text-zinc-400">
-                  Description indisponible.
-                </p>
-              )}
+              <p className="mt-4 text-lg text-zinc-400">
+                {bioToDisplay}
+                {hasDescription && movie.description.length > 300 && (
+                  <span
+                    onClick={() => setShowFullDescription(!showFullDescription)}
+                    className="ml-2 font-medium text-blue-400 cursor-pointer hover:underline"
+                  >
+                    {showFullDescription ? "Afficher moins" : "Afficher plus"}
+                  </span>
+                )}
+              </p>
               <div className="w-full mt-8 text-center">
                 <h2 className="mb-4 text-2xl font-semibold">Casting</h2>
                 {movie.cast.length === 0 ? (
@@ -198,23 +221,25 @@ const MovieDetails: React.FC = () => {
                     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                       {(showAllCast ? movie.cast : movie.cast.slice(0, 8)).map(
                         (actor: any) => (
-                          <div key={actor.id} className="relative">
-                            <img
-                              src={
-                                actor.profile_path
-                                  ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
-                                  : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
-                              }
-                              alt={actor.name}
-                              className="object-cover w-full rounded-md h-52 md:h-72"
-                            />
-                            <div className="w-full p-1 mt-2 text-sm font-semibold text-center text-white bg-zinc-900 bg-opacity-80">
-                              <p>{actor.name}</p>
-                              <p className="text-xs text-zinc-400">
-                                {actor.character}
-                              </p>
+                          <Link to={`/person/${actor.id}`} key={actor.id}>
+                            <div className="relative">
+                              <img
+                                src={
+                                  actor.profile_path
+                                    ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                                    : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844302_yLJwCwp0TjFCNTDhfdqxEoymy4GvPC69.jpg"
+                                }
+                                alt={actor.name}
+                                className="object-cover w-full rounded-md h-52 md:h-72"
+                              />
+                              <div className="w-full p-1 mt-2 text-sm font-semibold text-center text-white bg-zinc-900 bg-opacity-80">
+                                <p>{actor.name}</p>
+                                <p className="text-xs text-zinc-400">
+                                  {actor.character}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          </Link>
                         )
                       )}
                     </div>
