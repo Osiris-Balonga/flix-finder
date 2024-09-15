@@ -3,7 +3,7 @@
 <div align="center">
     <img src="public/capture.png" alt="Logo" width="100%" border-radius="0.25rem">
 </div>
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4749cfe6-4e98-4d17-b7af-7c07440ef1ae/deploy-status)](https://app.netlify.com/sites/my-flix-finder/deploys)
+[FlixFinder Netlify Link](https://my-flix-finder.netlify.app/)
 
 ## ENGLISH VERSION
 
