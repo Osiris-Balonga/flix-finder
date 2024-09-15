@@ -52,6 +52,7 @@ const MovieDetails: React.FC = () => {
             .map((producer: any) => producer.name),
           cast: creditsData.cast,
           videoUrl,
+          runtime: movieData.runtime,
         });
       } catch (error) {
         console.error(
@@ -136,23 +137,44 @@ const MovieDetails: React.FC = () => {
                 </button>
               </div>
 
-              <div className="flex items-center justify-center">
+              <div className="flex items-start justify-center md:items-center md:justify-start">
                 <div className="w-full mb-4">
-                  <h1 className="mb-4 text-3xl font-bold">{movie.title}</h1>
-                  <div className="mb-4">
-                    <p className="font-semibold text-zinc-300">
-                      Date de sortie :
-                    </p>
-                    <p className="text-zinc-400">{movie.releaseDate}</p>
-                  </div>
-                  <div className="mb-4">
-                    <p className="font-semibold text-zinc-300">Producteurs</p>
-                    <p className="text-zinc-400">
-                      {movie.producers.join(", ")}
-                    </p>
+                  <h1 className="mb-4 text-3xl font-bold text-left md:text-center">
+                    {movie.title}
+                  </h1>
+                  <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="mb-4">
+                      <p className="font-semibold text-left text-zinc-300">
+                        Durée :
+                      </p>
+                      <p className="text-left text-zinc-400">
+                        {movie.runtime
+                          ? `${Math.floor(movie.runtime / 60)}h ${
+                              movie.runtime % 60
+                            }m`
+                          : "Non disponible"}
+                      </p>
+                    </div>
+                    <div className="mb-4">
+                      <p className="font-semibold text-left text-zinc-300">
+                        Date de sortie :
+                      </p>
+                      <p className="text-left text-zinc-400">
+                        {movie.releaseDate}
+                      </p>
+                    </div>
+                    <div className="mb-4">
+                      <p className="font-semibold text-left text-zinc-300">
+                        Producteurs
+                      </p>
+                      <p className="text-left text-zinc-400">
+                        {movie.producers.join(", ")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
+
               <div className="flex items-center mb-2">
                 {[...Array(5)].map((_, index) => (
                   <span
@@ -199,17 +221,26 @@ const MovieDetails: React.FC = () => {
                   </p>
                 </div>
               )}
-              <p className="mt-4 text-lg text-zinc-400">
-                {bioToDisplay}
-                {hasDescription && movie.description.length > 300 && (
-                  <span
-                    onClick={() => setShowFullDescription(!showFullDescription)}
-                    className="ml-2 font-medium text-blue-400 cursor-pointer hover:underline"
-                  >
-                    {showFullDescription ? "Afficher moins" : "Afficher plus"}
-                  </span>
-                )}
-              </p>
+
+              <div className="mb-4">
+                <p className="font-semibold text-left text-zinc-300">
+                  Description :
+                </p>
+                <p className="text-lg text-zinc-400">
+                  {bioToDisplay}
+                  {hasDescription && movie.description.length > 300 && (
+                    <span
+                      onClick={() =>
+                        setShowFullDescription(!showFullDescription)
+                      }
+                      className="ml-2 font-medium text-white cursor-pointer hover:underline"
+                    >
+                      {showFullDescription ? "Afficher moins" : "Afficher plus"}
+                    </span>
+                  )}
+                </p>
+              </div>
+
               <div className="w-full mt-8 text-center">
                 <h2 className="mb-4 text-2xl font-semibold">Casting</h2>
                 {movie.cast.length === 0 ? (

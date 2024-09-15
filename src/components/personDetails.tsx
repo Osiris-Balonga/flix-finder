@@ -72,33 +72,66 @@ const PersonDetails: React.FC = () => {
 
         <div className="flex items-center justify-start w-full md:w-auto md:justify-center">
           <div className="w-full mb-4">
-            <h1 className="mb-4 text-3xl font-bold">{person.name}</h1>
-            <div className="mb-4">
-              <p className="font-semibold text-zinc-300">Célèbre pour :</p>
-              <p className="text-zinc-400">{person.known_for_department}</p>
-            </div>
-            <div className="mb-4">
-              <p className="font-semibold text-zinc-300">Date de naissance :</p>
-              <p className="text-zinc-400">{person.birthday || "N/A"}</p>
-            </div>
-            <div className="mb-4">
-              <p className="font-semibold text-zinc-300">Lieu de naissance :</p>
-              <p className="text-zinc-400">{person.place_of_birth || "N/A"}</p>
+            <h1 className="mb-4 text-3xl font-bold md:text-center">
+              {person.name}
+            </h1>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="mb-4">
+                <p className="font-semibold text-zinc-300">Célèbre pour :</p>
+                <p className="text-zinc-400">{person.known_for_department}</p>
+              </div>
+              <div className="mb-4">
+                <p className="font-semibold text-zinc-300">
+                  Date de naissance :
+                </p>
+                <p className="text-zinc-400">{person.birthday || "N/A"}</p>
+              </div>
+              <div className="mb-4">
+                <p className="font-semibold text-zinc-300">
+                  Lieu de naissance :
+                </p>
+                <p className="text-zinc-400">
+                  {person.place_of_birth || "N/A"}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="font-semibold text-zinc-300">Genre :</p>
+                <p className="text-zinc-400">
+                  {person.gender === 1
+                    ? "Femme"
+                    : person.gender === 2
+                    ? "Homme"
+                    : "Non spécifié"}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="font-semibold text-zinc-300">
+                  Nombre d'apparitions :
+                </p>
+                <p className="text-zinc-400">
+                  {person.known_for_department
+                    ? person.known_for_department.length
+                    : 0}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        <p className="mb-4 text-zinc-400">
-          {bioToDisplay}
-          {person.biography && person.biography.length > 300 && (
-            <span
-              onClick={() => setShowFullBio(!showFullBio)}
-              className="ml-2 font-medium text-blue-400 cursor-pointer hover:underline"
-            >
-              {showFullBio ? "Afficher moins" : "Afficher plus"}
-            </span>
-          )}
-        </p>
+        <div className="mb-4">
+          <p className="font-semibold text-zinc-300">Biographie :</p>
+          <p className="mb-4 text-zinc-400">
+            {bioToDisplay}
+            {person.biography && person.biography.length > 300 && (
+              <span
+                onClick={() => setShowFullBio(!showFullBio)}
+                className="ml-2 font-medium text-white cursor-pointer hover:underline"
+              >
+                {showFullBio ? "Afficher moins" : "Afficher plus"}
+              </span>
+            )}
+          </p>
+        </div>
 
         <div className="w-full mt-8">
           <h2 className="mb-4 text-2xl font-semibold">Films</h2>

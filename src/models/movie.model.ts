@@ -5,6 +5,7 @@ export interface MovieModel {
   rating: number;
   genres: string[];
   description: string;
+  runtime?: number;
   videoUrl: string;
   releaseDate: string;
   producers: string[];

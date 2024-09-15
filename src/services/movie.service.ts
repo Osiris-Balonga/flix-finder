@@ -6,7 +6,7 @@ import { getGenreName } from "../utils/movieUtils";
 export class MovieService {
   private baseUrl = URL_API.baseUrl;
   private apiKey = URL_API.apiKey;
-  private language = 'fr-FR';
+  private language = URL_API.language;
 
   constructor(language?: string) {
     if (language) {
